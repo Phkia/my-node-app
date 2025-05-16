@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// public 폴더를 정적(static) 파일 폴더로 지정
+// public 폴더 안의 정적 파일 제공
 app.use(express.static('public'));
 
 app.listen(port, () => {

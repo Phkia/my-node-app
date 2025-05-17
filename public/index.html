@@ -1,101 +1,346 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>호날두</title>
-    <meta charset="UTF-8">
-  <title>플레이리스트</title>
+  <meta charset="UTF-8" />
+  <title>중앙 정렬 플레이리스트</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 10px 0; cursor: pointer; }
-    li:hover { color: blue; }
-    button {
-      margin-right: 10px; /* 버튼들 사이 간격 */
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+
+      transform: scale(1);
+      transform-origin: top center;
     }
+    .container {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  padding-top: 80px;
+    }
+  .play-button {
+  font-size: 24px;              /* 글자 크기 반으로 */
+  background-color: #1db954;
+  border: none;
+  color: white;
+  padding: 15px;                /* 안쪽 여백 줄이기 */
+  border-radius: 50%;
+  cursor: pointer;
+  margin-bottom: 30px;
+  display: inline-block;
+  width: 60px;                  /* 너비 반으로 */
+  height: 60px;                 /* 높이 반으로 */
+  line-height: 30px;            /* 텍스트 수직 정렬 맞추기 */
+  text-align: center;
+  margin-right: 20px;           /* 오른쪽 공간 확보 (플레이리스트와 간격) */
+  float: left;                  /* 왼쪽에 붙이기 */
+}
+    table.playlist {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    table.playlist th, table.playlist td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+    }
+    table.playlist th {
+      color: #bbb;
+      font-weight: normal;
+      font-size: 14px;
+    }
+    table.playlist tr:hover {
+      background-color: #222;
+      cursor: pointer;
+    }
+    .track-number {
+      width: 30px;
+    }
+    .track-length {
+      width: 60px;
+      text-align: right;
+      color: #999;
+    }
+
+    /* 아래 컨트롤 박스 스타일 */
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .now-playing {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .progress-container {
+      width: 100%;
+    }
+    input[type=range] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 5px;
+      background: #555;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background: #1db954;
+      cursor: pointer;
+      border-radius: 50%;
+      margin-top: -5px;
+    }
+    input[type=range]:focus {
+      outline: none;
+    }
+    .control-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    .control-buttons button {
+      background-color: #1db954;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .time-display {
+      font-size: 14px;
+      color: #bbb;
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 600px;
+    }
+    #pauseBtn {
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 16px;
+  letter-spacing: normal;  /* 줄바꿈에 방해되지 않게 */
+  white-space: normal;     /* 줄바꿈 허용 */
+  text-align: center;      /* 글자 가운데 정렬 */
+  line-height: 1.1;        /* 줄간격 조절 */
+  width: 90px;             /* 버튼 가로 크기 */
+  height: 100px;            /* 버튼 세로 크기 */
+} /* 글자 사이 간격 */
   </style>
 </head>
 <body>
-    <h1>정원우 개씹돼지련</h1>
-    <a href="image01.jpg">눌러봐</a>
-    <br>
-    <h1>박돼지 개좆돼지련</h1>
-    <a href="image92.jpeg">눌러봐</a>
-  <h1>🎶 내 플레이리스트</h1>
+  <div class="container">
+    <button class="play-button" onclick="playAll()">▶</button>
+    <table class="playlist">
+      <thead>
+        <tr>
+          <th class="track-number">#</th>
+          <th>제목</th>
+          <th>가수</th>
+          <th class="track-length">길이</th>
+        </tr>
+      </thead>
+      <tbody id="track-list">
+        <tr onclick="playTrack(0)">
+          <td>1</td>
+          <td>Period</td>
+          <td>Chemistry</td>
+          <td class="track-length">3:37</td>
+        </tr>
+        <tr onclick="playTrack(1)">
+          <td>2</td>
+          <td>The Day</td>
+          <td>Porno Graffitti</td>
+          <td class="track-length">4:03</td>
+        </tr>
+        <tr onclick="playTrack(2)">
+          <td>3</td>
+          <td>Uso</td>
+          <td>Sid</td>
+          <td class="track-length">3:28</td>
+        </tr>
+        <tr onclick="playTrack(3)">
+          <td>4</td>
+          <td>(광란) Hey kids!!</td>
+          <td>ARAGOTO</td>
+          <td class="track-length">3:45</td>
+        </tr>
+        <tr onclick="playTrack(4)">
+          <td>5</td>
+          <td>Rain</td>
+          <td>Sid</td>
+          <td class="track-length">4:13</td>
+        </tr>
+        <tr onclick="playTrack(5)">
+          <td>6</td>
+          <td>양철의 댄스</td>
+          <td>양지전공</td>
+          <td class="track-length">3:18</td>
+        </tr>
+        <tr onclick="playTrack(6)">
+          <td>7</td>
+          <td>Rewrite</td>
+          <td>ASIAN KUNG-FU GENERATION</td>
+          <td class="track-length">3:52</td>
+        </tr>
+        <tr onclick="playTrack(7)">
+          <td>8</td>
+          <td>Bloody Stream</td>
+          <td>Coda</td>
+          <td class="track-length">4:21</td>
+        </tr>
+        <tr onclick="playTrack(8)">
+          <td>9</td>
+          <td>열정의 스펙트럼</td>
+          <td>이키모노가카리</td>
+          <td class="track-length">3:55</td>
+        </tr>
+        <tr onclick="playTrack(9)">
+          <td>10</td>
+          <td>천본앵</td>
+          <td>화악기 밴드</td>
+          <td class="track-length">4:39</td>
+        </tr>
+        <tr onclick="playTrack(10)">
+          <td>11</td>
+          <td>Amazing Break</td>
+          <td>terraspex</td>
+          <td class="track-length">3:55</td>
+        </tr>
+        <tr onclick="playTrack(11)">
+          <td>12</td>
+          <td>Depature</td>
+          <td>오노 마사토시</td>
+          <td class="track-length">4:16</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- 노래 리스트 -->
-  <ul id="playlist">
-    <!-- MP3 파일을 public/songs/ 여기에 넣고 아래 파일명에 맞춰 호출 -->
-    <li onclick="loadSong('강연금.mp3', 'SID-USO')">🎵 Sid-Uso</li>
-    <li onclick="loadSong('피리오드.mp3', 'Chemistry-Period')">🎵 Chemistry_Period</li>
-    <li onclick="loadSong('레인.mp3', 'Sid_Rain')">🎵 Sid_Rain</li>
-    <li onclick="loadSong('THE DAY.mp3', '나히아-The Day')">🎵 나히아-The Day</li>
-    <li onclick="loadSong('노라가미.mp3', 'ARAGOTO-Hey Kids!!')">🎵 ARAGOTO-Hey Kids!!</li>
-  </ul>
-
-  <!-- 현재 노래 정보 -->
-  <h2 id="now-playing">재생 중: 없음</h2>
-
-  <!-- 재생 컨트롤 -->
-  <button onclick="play()">▶ 재생</button>
-  <button onclick="pause()">⏸ 일시정지</button>
-  <label for="volume">볼륨</label>
-  <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
-
-  <br><br>
-  <span id="current-time">0:00</span> / <span id="duration">0:00</span>
-  <input type="range" id="progress" value="0" min="0" max="100" step="1" onchange="seek(this.value)">
-
-  <!-- 오디오 -->
-  <audio id="audio"></audio>
+    <div class="controls">
+      <div class="now-playing" id="nowPlaying">재생 중인 노래: 없음</div>
+      <div class="progress-container">
+        <input type="range" id="progress" min="0" max="100" value="0" step="1" onchange="seekAudio(this.value)" />
+      </div>
+      <div class="time-display">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+      <div class="control-buttons">
+        <button onclick="playAudio()">▶ 재생</button>
+        <button id="pauseBtn" onclick="pauseAudio()">⏸ 일시정지</button>
+        <button onclick="stopAudio()">■ 정지</button>
+        <label for="volume" style="color:white; line-height:32px; margin-left:10px; margin-right:5px;">볼륨</label>
+        <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)" />
+      </div>
+    </div>
+  </div>
 
   <script>
-    const audio = document.getElementById('audio');
-    const nowPlaying = document.getElementById('now-playing');
-    const currentTimeEl = document.getElementById('current-time');
+    const tracks = [
+      {src:'songs/피리오드.mp3', title:'Period', artist:'Chemistry', duration:'3:37'},
+      {src:'songs/THE DAY.mp3', title:'The Day', artist:'Porno Graffitti', duration:'4:03'},
+      {src:'songs/강연금.mp3', title:'Uso', artist:'Sid', duration:'3:28'},
+      {src:'songs/노라가미.mp3', title:'(광란) Hey kids!!', artist:'ARAGOTO', duration:'4:13'},
+      {src:'songs/레인.mp3', title:'Rain', artist:'Sid', duration:'4:16'},
+      {src:'songs/양철의 댄스.mp3', title:'양철의 댄스', artist:'양지전공', duration:'3:18'},
+      {src:'songs/리라이트.mp3', title:'Rewrite', artist:'ASIAN KUNG-FU GENERATION', duration:'3:52'},
+      {src:'songs/죠죠.mp3', title:'Bloody Stream', artist:'Coda', duration:'4:21'},
+      {src:'songs/칠대죄.mp3', title:'열정의 스펙트럼', artist:'이키모노가카리', duration:'3:55'},
+      {src:'songs/천본앵.mp3', title:'천본앵', artist:'화악기 밴드', duration:'4:39'},
+      {src:'songs/테라포마스.mp3', title:'Amazing Break', artist:'terraspex', duration:'3:55'},
+      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'오노 마사토시', duration:'4:16'}
+    ];
+    let audio = new Audio();
+    let currentIndex = null;
+    const nowPlaying = document.getElementById('nowPlaying');
+    const progress = document.getElementById('progress');
+    const currentTimeEl = document.getElementById('currentTime');
     const durationEl = document.getElementById('duration');
-    const progressEl = document.getElementById('progress');
+    const volumeSlider = document.getElementById('volume');
 
-    function loadSong(fileName, title) {
-      // MP3 파일은 public/songs/ 폴더에 넣어야 함!
-      audio.src = `songs/${fileName}`;
-      nowPlaying.textContent = `재생 중: ${title}`;
-      audio.play();
+    function playAll() {
+      if(tracks.length > 0) playTrack(0);
     }
 
-    function play() {
+    function playTrack(index) {
+      currentIndex = index;
+      audio.src = tracks[index].src;
       audio.play();
+      nowPlaying.textContent = `재생 중인 노래: ${tracks[index].title} - ${tracks[index].artist}`;
     }
 
-    function pause() {
+    function playAudio() {
+      if(audio.src) {
+        audio.play();
+      } else {
+        playAll();
+      }
+    }
+
+    function pauseAudio() {
       audio.pause();
+    }
+
+    function stopAudio() {
+      audio.pause();
+      audio.currentTime = 0;
+      nowPlaying.textContent = '재생 중인 노래: 없음';
+      progress.value = 0;
+      currentTimeEl.textContent = '0:00';
+      durationEl.textContent = '0:00';
+      currentIndex = null;
+      audio.src = '';
     }
 
     function setVolume(val) {
       audio.volume = val;
     }
 
-    function seek(val) {
-      audio.currentTime = (audio.duration * val) / 100;
+    function seekAudio(val) {
+      if(audio.duration) {
+        audio.currentTime = (audio.duration * val) / 100;
+      }
     }
 
-    function formatTime(sec) {
-      const m = Math.floor(sec / 60);
-      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60).toString().padStart(2,'0');
       return `${m}:${s}`;
     }
 
     audio.addEventListener('timeupdate', () => {
-      currentTimeEl.textContent = formatTime(audio.currentTime);
-      if (!isNaN(audio.duration)) {
-        progressEl.value = (audio.currentTime / audio.duration) * 100;
+      if(audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progress.value = progressPercent;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        durationEl.textContent = formatTime(audio.duration);
       }
     });
 
-    audio.addEventListener('loadedmetadata', () => {
-      durationEl.textContent = formatTime(audio.duration);
+    audio.addEventListener('ended', () => {
+      // 노래 끝나면 다음곡 재생 (있으면)
+      if(currentIndex !== null && currentIndex < tracks.length - 1) {
+        playTrack(currentIndex + 1);
+      } else {
+        stopAudio();
+      }
     });
+
+    // 초기 볼륨 세팅
+    setVolume(volumeSlider.value);
   </script>
 </body>
 </html>

@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>호날두</title>
+    <meta charset="UTF-8">
+  <title>플레이리스트</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; cursor: pointer; }
+    li:hover { color: blue; }
+    button {
+      margin-right: 10px; /* 버튼들 사이 간격 */
+    }
+  </style>
 </head>
 <body>
     <h1>정원우 개씹돼지련</h1>
@@ -11,5 +22,80 @@
     <br>
     <h1>박돼지 개좆돼지련</h1>
     <a href="image92.jpeg">눌러봐</a>
+  <h1>🎶 내 플레이리스트</h1>
+
+  <!-- 노래 리스트 -->
+  <ul id="playlist">
+    <!-- MP3 파일을 public/songs/ 여기에 넣고 아래 파일명에 맞춰 호출 -->
+    <li onclick="loadSong('강연금.mp3', 'SID-USO')">🎵 Sid-Uso</li>
+    <li onclick="loadSong('피리오드.mp3', 'Chemistry-Period')">🎵 Chemistry_Period</li>
+    <li onclick="loadSong('레인.mp3', 'Sid_Rain')">🎵 Sid_Rain</li>
+    <li onclick="loadSong('THE DAY.mp3', '나히아-The Day')">🎵 나히아-The Day</li>
+    <li onclick="loadSong('노라가미.mp3', 'ARAGOTO-Hey Kids!!')">🎵 ARAGOTO-Hey Kids!!</li>
+  </ul>
+
+  <!-- 현재 노래 정보 -->
+  <h2 id="now-playing">재생 중: 없음</h2>
+
+  <!-- 재생 컨트롤 -->
+  <button onclick="play()">▶ 재생</button>
+  <button onclick="pause()">⏸ 일시정지</button>
+  <label for="volume">볼륨</label>
+  <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
+
+  <br><br>
+  <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+  <input type="range" id="progress" value="0" min="0" max="100" step="1" onchange="seek(this.value)">
+
+  <!-- 오디오 -->
+  <audio id="audio"></audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const nowPlaying = document.getElementById('now-playing');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const progressEl = document.getElementById('progress');
+
+    function loadSong(fileName, title) {
+      // MP3 파일은 public/songs/ 폴더에 넣어야 함!
+      audio.src = `songs/${fileName}`;
+      nowPlaying.textContent = `재생 중: ${title}`;
+      audio.play();
+    }
+
+    function play() {
+      audio.play();
+    }
+
+    function pause() {
+      audio.pause();
+    }
+
+    function setVolume(val) {
+      audio.volume = val;
+    }
+
+    function seek(val) {
+      audio.currentTime = (audio.duration * val) / 100;
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      if (!isNaN(audio.duration)) {
+        progressEl.value = (audio.currentTime / audio.duration) * 100;
+      }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      durationEl.textContent = formatTime(audio.duration);
+    });
+  </script>
 </body>
 </html>

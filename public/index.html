@@ -298,9 +298,19 @@
         <button onclick="playAudio()">▶ 재생</button>
         <button id="pauseBtn" onclick="pauseAudio()">⏸ 일시정지</button>
         <button onclick="stopAudio()">■ 정지</button>
-        <label for="volume" style="color:white; line-height:32px; margin-left:10px; margin-right:5px;">볼륨</label>
-        <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)" />
-      </div>
+        <div style="display: flex; align-items: center; margin-top: 10px;">
+  <label for="volume" style="color: white; line-height: 32px; margin-right: 10px;">볼륨</label>
+  <input
+    type="range"
+    id="volume"
+    min="0"
+    max="1"
+    step="0.01"
+    value="0.5"
+    onchange="setVolume(this.value)"
+    style="flex: 1; height: 4px; accent-color: #1db954;"
+  />
+</div>
     </div>
   </div>
 

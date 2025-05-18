@@ -2,49 +2,61 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>중앙 정렬 플레이리스트</title>
+  <link rel="icon" type="image/png" href="로고.png" />
+  <title>감동이 있는 플레이리스트</title>
   <style>
+    /* body는 flex 제거하고 화면 꽉 채우기 */
     body {
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
       margin: 0;
-
       transform: scale(1);
       transform-origin: top center;
     }
+
+    /* container는 화면 꽉 채우고 세로 배치 */
     .container {
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  padding-top: 80px;
+      width: 100vw;
+      height: 100vh;
+      padding: 20px 30px 20px 20px;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: column;
     }
-  .play-button {
-  font-size: 24px;              /* 글자 크기 반으로 */
-  background-color: #1db954;
-  border: none;
-  color: white;
-  padding: 15px;                /* 안쪽 여백 줄이기 */
-  border-radius: 50%;
-  cursor: pointer;
-  margin-bottom: 30px;
-  display: inline-block;
-  width: 60px;                  /* 너비 반으로 */
-  height: 60px;                 /* 높이 반으로 */
-  line-height: 30px;            /* 텍스트 수직 정렬 맞추기 */
-  text-align: center;
-  margin-right: 20px;           /* 오른쪽 공간 확보 (플레이리스트와 간격) */
-  float: left;                  /* 왼쪽에 붙이기 */
-}
+
+    /* 상단 재생 버튼 */
+    .play-button {
+      font-size: 24px;
+      background-color: #1db954;
+      border: none;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      line-height: 30px;
+      text-align: center;
+      float: left;
+      margin-bottom: 20px;
+    }
+
+    /* 플레이리스트 스크롤 영역 감싸는 컨테이너 */
+    .playlist-container {
+      flex-grow: 1; /* 남은 공간 모두 차지 */
+      overflow-y: auto;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    /* 플레이리스트 테이블 */
     table.playlist {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      margin-bottom: 0; /* margin-bottom은 컨테이너에 있음 */
     }
     table.playlist th, table.playlist td {
       padding: 12px 15px;
@@ -69,9 +81,9 @@
       color: #999;
     }
 
-    /* 아래 컨트롤 박스 스타일 */
+    /* 하단 컨트롤 박스 */
     .controls {
-      margin-top: 20px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -109,6 +121,7 @@
       display: flex;
       gap: 15px;
       justify-content: center;
+      flex-wrap: wrap;
     }
     .control-buttons button {
       background-color: #1db954;
@@ -129,105 +142,148 @@
       max-width: 600px;
     }
     #pauseBtn {
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 16px;
-  letter-spacing: normal;  /* 줄바꿈에 방해되지 않게 */
-  white-space: normal;     /* 줄바꿈 허용 */
-  text-align: center;      /* 글자 가운데 정렬 */
-  line-height: 1.1;        /* 줄간격 조절 */
-  width: 90px;             /* 버튼 가로 크기 */
-  height: 100px;            /* 버튼 세로 크기 */
-} /* 글자 사이 간격 */
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 16px;
+      letter-spacing: normal;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.1;
+      width: 90px;
+      height: 100px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <button class="play-button" onclick="playAll()">▶</button>
-    <table class="playlist">
-      <thead>
-        <tr>
-          <th class="track-number">#</th>
-          <th>제목</th>
-          <th>가수</th>
-          <th class="track-length">길이</th>
-        </tr>
-      </thead>
-      <tbody id="track-list">
-        <tr onclick="playTrack(0)">
-          <td>1</td>
-          <td>Period</td>
-          <td>Chemistry</td>
-          <td class="track-length">3:37</td>
-        </tr>
-        <tr onclick="playTrack(1)">
-          <td>2</td>
-          <td>The Day</td>
-          <td>Porno Graffitti</td>
-          <td class="track-length">4:03</td>
-        </tr>
-        <tr onclick="playTrack(2)">
-          <td>3</td>
-          <td>Uso</td>
-          <td>Sid</td>
-          <td class="track-length">3:28</td>
-        </tr>
-        <tr onclick="playTrack(3)">
-          <td>4</td>
-          <td>(광란) Hey kids!!</td>
-          <td>ARAGOTO</td>
-          <td class="track-length">3:45</td>
-        </tr>
-        <tr onclick="playTrack(4)">
-          <td>5</td>
-          <td>Rain</td>
-          <td>Sid</td>
-          <td class="track-length">4:13</td>
-        </tr>
-        <tr onclick="playTrack(5)">
-          <td>6</td>
-          <td>양철의 댄스</td>
-          <td>양지전공</td>
-          <td class="track-length">3:18</td>
-        </tr>
-        <tr onclick="playTrack(6)">
-          <td>7</td>
-          <td>Rewrite</td>
-          <td>ASIAN KUNG-FU GENERATION</td>
-          <td class="track-length">3:52</td>
-        </tr>
-        <tr onclick="playTrack(7)">
-          <td>8</td>
-          <td>Bloody Stream</td>
-          <td>Coda</td>
-          <td class="track-length">4:21</td>
-        </tr>
-        <tr onclick="playTrack(8)">
-          <td>9</td>
-          <td>열정의 스펙트럼</td>
-          <td>이키모노가카리</td>
-          <td class="track-length">3:55</td>
-        </tr>
-        <tr onclick="playTrack(9)">
-          <td>10</td>
-          <td>천본앵</td>
-          <td>화악기 밴드</td>
-          <td class="track-length">4:39</td>
-        </tr>
-        <tr onclick="playTrack(10)">
-          <td>11</td>
-          <td>Amazing Break</td>
-          <td>terraspex</td>
-          <td class="track-length">3:55</td>
-        </tr>
-        <tr onclick="playTrack(11)">
-          <td>12</td>
-          <td>Depature</td>
-          <td>오노 마사토시</td>
-          <td class="track-length">4:16</td>
-        </tr>
-      </tbody>
-    </table>
+    
+    <div class="playlist-container">
+      <table class="playlist">
+        <thead>
+          <tr>
+            <th class="track-number">#</th>
+            <th>제목</th>
+            <th>가수</th>
+            <th class="track-length">길이</th>
+          </tr>
+        </thead>
+        <tbody id="track-list">
+          <tr onclick="playTrack(0)">
+            <td>1</td>
+            <td>Period</td>
+            <td>Chemistry</td>
+            <td class="track-length">3:37</td>
+          </tr>
+          <tr onclick="playTrack(1)">
+            <td>2</td>
+            <td>The Day</td>
+            <td>Porno Graffitti</td>
+            <td class="track-length">4:03</td>
+          </tr>
+          <tr onclick="playTrack(2)">
+            <td>3</td>
+            <td>Uso</td>
+            <td>Sid</td>
+            <td class="track-length">3:28</td>
+          </tr>
+          <tr onclick="playTrack(3)">
+            <td>4</td>
+            <td>(광란) Hey kids!!</td>
+            <td>ARAGOTO</td>
+            <td class="track-length">3:45</td>
+          </tr>
+          <tr onclick="playTrack(4)">
+            <td>5</td>
+            <td>Rain</td>
+            <td>Sid</td>
+            <td class="track-length">4:13</td>
+          </tr>
+          <tr onclick="playTrack(5)">
+            <td>6</td>
+            <td>양철의 댄스</td>
+            <td>양지전공</td>
+            <td class="track-length">3:18</td>
+          </tr>
+          <tr onclick="playTrack(6)">
+            <td>7</td>
+            <td>Rewrite</td>
+            <td>ASIAN KUNG-FU GENERATION</td>
+            <td class="track-length">3:52</td>
+          </tr>
+          <tr onclick="playTrack(7)">
+            <td>8</td>
+            <td>Bloody Stream</td>
+            <td>Coda</td>
+            <td class="track-length">4:21</td>
+          </tr>
+          <tr onclick="playTrack(8)">
+            <td>9</td>
+            <td>열정의 스펙트럼</td>
+            <td>이키모노가카리</td>
+            <td class="track-length">3:55</td>
+          </tr>
+          <tr onclick="playTrack(9)">
+            <td>10</td>
+            <td>천본앵</td>
+            <td>화악기 밴드</td>
+            <td class="track-length">4:39</td>
+          </tr>
+          <tr onclick="playTrack(10)">
+            <td>11</td>
+            <td>Amazing Break</td>
+            <td>terraspex</td>
+            <td class="track-length">3:55</td>
+          </tr>
+          <tr onclick="playTrack(11)">
+            <td>12</td>
+            <td>Depature</td>
+            <td>오노 마사토시</td>
+            <td class="track-length">4:16</td>
+          <tr onclick="playTrack(12)">
+            <td>13</td>
+            <td>Raison Detre</td>
+            <td>Eve</td>
+            <td class="track-length">3:48</td>
+          <tr onclick="playTrack(13)">
+            <td>14</td>
+            <td>Ranbu No Melody</td>
+            <td>Sid</td>
+            <td class="track-length">4:00</td>
+          <tr onclick="playTrack(14)">
+            <td>15</td>
+            <td>Fiction</td>
+            <td>Sumika</td>
+            <td class="track-length">4:12</td>
+          <tr onclick="playTrack(15)">
+            <td>16</td>
+            <td>Plasma</td>
+            <td>Kenshi Yonezu</td>
+            <td class="track-length">3:19</td>
+          <tr onclick="playTrack(16)">
+            <td>17</td>
+            <td>Dramaturgy</td>
+            <td>Eve</td>
+            <td class="track-length">3:19</td>
+          <tr onclick="playTrack(17)">
+            <td>18</td>
+            <td>Know Know Know</td>
+            <td>DOES</td>
+            <td class="track-length">3:20</td>
+          <tr onclick="playTrack(18)">
+            <td>19</td>
+            <td>Fatal</td>
+            <td>GEMN</td>
+            <td class="track-length">3:38</td>
+          <tr onclick="playTrack(19)">
+            <td>20</td>
+            <td>박수갈채가합</td>
+            <td>Supercell</td>
+            <td class="track-length">3:52</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="controls">
       <div class="now-playing" id="nowPlaying">재생 중인 노래: 없음</div>
@@ -253,7 +309,7 @@
       {src:'songs/피리오드.mp3', title:'Period', artist:'Chemistry', duration:'3:37'},
       {src:'songs/THE DAY.mp3', title:'The Day', artist:'Porno Graffitti', duration:'4:03'},
       {src:'songs/강연금.mp3', title:'Uso', artist:'Sid', duration:'3:28'},
-      {src:'songs/노라가미.mp3', title:'(광란) Hey kids!!', artist:'ARAGOTO', duration:'4:13'},
+      {src:'songs/노라가미.mp3', title:'(광란) Hey kids!!', artist:'ARAGOTO', duration:'3:45'},
       {src:'songs/레인.mp3', title:'Rain', artist:'Sid', duration:'4:16'},
       {src:'songs/양철의 댄스.mp3', title:'양철의 댄스', artist:'양지전공', duration:'3:18'},
       {src:'songs/리라이트.mp3', title:'Rewrite', artist:'ASIAN KUNG-FU GENERATION', duration:'3:52'},
@@ -261,10 +317,19 @@
       {src:'songs/칠대죄.mp3', title:'열정의 스펙트럼', artist:'이키모노가카리', duration:'3:55'},
       {src:'songs/천본앵.mp3', title:'천본앵', artist:'화악기 밴드', duration:'4:39'},
       {src:'songs/테라포마스.mp3', title:'Amazing Break', artist:'terraspex', duration:'3:55'},
-      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'오노 마사토시', duration:'4:16'}
+      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'오노 마사토시', duration:'4:16'},
+      {src:'songs/레종.mp3', title:'Raison Detre', artist:'Eve', duration:'3:48'},
+      {src:'songs/란부노.mp3', title:'Ranbu No Melody', artist:'Sid', duration:'4:00'},
+      {src:'songs/픽션.mp3', title:'Fiction', artist:'Sumika', duration:'4:12'},
+      {src:'songs/플라즈마.mp3', title:'Plasma', artist:'Kenshi Yonezu', duration:'3:19'},
+      {src:'songs/드라마투르기.mp3', title:'Dramaturgy', artist:'Eve', duration:'3:19'},
+      {src:'songs/은혼.mp3', title:'Know Know Know', artist:'DOES', duration:'3:20'},
+      {src:'songs/파탈.mp3', title:'Fatal', artist:'GEMN', duration:'3:38'},
+      {src:'songs/박수갈채가합.mp3', title:'박수갈채가합', artist:'Supercell', duration:'3:52'}
     ];
     let audio = new Audio();
     let currentIndex = null;
+
     const nowPlaying = document.getElementById('nowPlaying');
     const progress = document.getElementById('progress');
     const currentTimeEl = document.getElementById('currentTime');
@@ -272,18 +337,23 @@
     const volumeSlider = document.getElementById('volume');
 
     function playAll() {
-      if(tracks.length > 0) playTrack(0);
+      if (tracks.length > 0) playTrack(0);
     }
 
     function playTrack(index) {
       currentIndex = index;
       audio.src = tracks[index].src;
-      audio.play();
       nowPlaying.textContent = `재생 중인 노래: ${tracks[index].title} - ${tracks[index].artist}`;
+
+      audio.load();
+      audio.onloadedmetadata = () => {
+        durationEl.textContent = formatTime(audio.duration);
+        audio.play();
+      };
     }
 
     function playAudio() {
-      if(audio.src) {
+      if (audio.src) {
         audio.play();
       } else {
         playAll();
@@ -310,36 +380,38 @@
     }
 
     function seekAudio(val) {
-      if(audio.duration) {
+      if (audio.duration) {
         audio.currentTime = (audio.duration * val) / 100;
       }
     }
 
     function formatTime(seconds) {
       const m = Math.floor(seconds / 60);
-      const s = Math.floor(seconds % 60).toString().padStart(2,'0');
+      const s = Math.floor(seconds % 60).toString().padStart(2, '0');
       return `${m}:${s}`;
     }
 
     audio.addEventListener('timeupdate', () => {
-      if(audio.duration) {
+      if (audio.duration) {
         const progressPercent = (audio.currentTime / audio.duration) * 100;
         progress.value = progressPercent;
         currentTimeEl.textContent = formatTime(audio.currentTime);
-        durationEl.textContent = formatTime(audio.duration);
       }
     });
 
     audio.addEventListener('ended', () => {
-      // 노래 끝나면 다음곡 재생 (있으면)
-      if(currentIndex !== null && currentIndex < tracks.length - 1) {
+      if (currentIndex !== null && currentIndex < tracks.length - 1) {
         playTrack(currentIndex + 1);
       } else {
         stopAudio();
       }
     });
 
-    // 초기 볼륨 세팅
+    progress.addEventListener('input', () => {
+      seekAudio(progress.value);
+    });
+
+    // 초기 볼륨 설정
     setVolume(volumeSlider.value);
   </script>
 </body>

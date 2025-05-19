@@ -51,6 +51,22 @@
       margin-bottom: 20px;
       width: 100%;
     }
+    .playlist-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+  background-color: #1db954;
+  border-radius: 4px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb:hover {
+  background-color: #1ed760;
+}
 
     /* 플레이리스트 테이블 */
     table.playlist {
@@ -66,7 +82,7 @@
     table.playlist th {
       color: #bbb;
       font-weight: normal;
-      font-size: 14px;
+      font-size: 16px;
     }
     table.playlist tr:hover {
       background-color: #222;
@@ -80,6 +96,19 @@
       text-align: right;
       color: #999;
     }
+    .track-info {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* 이미지와 텍스트 사이 간격 */
+}
+
+/* 앨범 썸네일 이미지 스타일 */
+.album-thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
     /* 하단 컨트롤 박스 */
     .controls {
@@ -96,11 +125,14 @@
     .progress-container {
       width: 100%;
     }
+    ::-webkit-scrollbar-track {
+      background: #000000; /* 트랙 색상 */
+    }
     input[type=range] {
       width: 100%;
       -webkit-appearance: none;
       height: 5px;
-      background: #555;
+      background: #969494;
       border-radius: 5px;
       cursor: pointer;
     }
@@ -119,7 +151,7 @@
     }
     .control-buttons {
       display: flex;
-      gap: 15px;
+      gap: 17px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -127,13 +159,13 @@
       background-color: #1db954;
       border: none;
       color: white;
-      padding: 8px 16px;
-      border-radius: 5px;
+      padding: 10px 20px;
+      border-radius: 7px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 25px;
     }
     .time-display {
-      font-size: 14px;
+      font-size: 20px;
       color: #bbb;
       margin-top: 5px;
       display: flex;
@@ -144,7 +176,7 @@
     #pauseBtn {
       padding-left: 16px;
       padding-right: 16px;
-      font-size: 16px;
+      font-size: 30px;
       letter-spacing: normal;
       white-space: normal;
       text-align: center;
@@ -163,7 +195,7 @@
         <thead>
           <tr>
             <th class="track-number">#</th>
-            <th>제목</th>
+            <th style="padding-left: 80px;">제목</th>
             <th>가수</th>
             <th class="track-length">길이</th>
           </tr>
@@ -171,248 +203,448 @@
         <tbody id="track-list">
           <tr onclick="playTrack(0)">
             <td>1</td>
-            <td>Period</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Period.jpg" alt="Period cover" class="album-thumb">
+                <span>Period</span>
+              </div>
+            </td>
             <td>Chemistry</td>
             <td class="track-length">3:37</td>
           </tr>
           <tr onclick="playTrack(1)">
             <td>2</td>
-            <td>The Day</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/The Day.jpg" alt="The Day cover" class="album-thumb">
+                <span>The Day</span>
+              </div>
+            </td>
             <td>Porno Graffitti</td>
             <td class="track-length">4:03</td>
           </tr>
           <tr onclick="playTrack(2)">
             <td>3</td>
-            <td>Uso</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Uso.jpg" alt="Uso cover" class="album-thumb">
+                <span>Uso</span>
+              </div>
+            </td>
             <td>Sid</td>
             <td class="track-length">3:28</td>
           </tr>
           <tr onclick="playTrack(3)">
             <td>4</td>
-            <td>(광란) Hey kids!!</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Hey kids!!.jpg" alt="狂乱 Hey kids!! cover" class="album-thumb">
+                <span>狂乱 Hey kids!!</span>
+              </div>
+            </td>
             <td>ARAGOTO</td>
             <td class="track-length">3:45</td>
           </tr>
           <tr onclick="playTrack(4)">
             <td>5</td>
-            <td>Rain</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Rain.jpg" alt="Rain cover" class="album-thumb">
+                <span>Rain</span>
+              </div>
+            </td>
             <td>Sid</td>
             <td class="track-length">4:13</td>
           </tr>
 
           <tr onclick="playTrack(5)">
             <td>6</td>
-            <td>양철의 댄스</td>
-            <td>양지전공</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Buriki.jpg" alt="Buriki No Dance cover" class="album-thumb">
+                <span>Buriki No Dance</span>
+              </div>
+            </td>
+            <td>Hinata Electric Works</td>
             <td class="track-length">3:18</td>
           </tr>
           <tr onclick="playTrack(6)">
             <td>7</td>
-            <td>Rewrite</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Rewrite.jpg" alt="Rewrite cover" class="album-thumb">
+                <span>Rewrite</span>
+              </div>
+            </td>
             <td>ASIAN KUNG-FU GENERATION</td>
             <td class="track-length">3:52</td>
           </tr>
           <tr onclick="playTrack(7)">
             <td>8</td>
-            <td>Bloody Stream</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Bloody.jpg" alt="Bloody Stream cover" class="album-thumb">
+                <span>Bloody Stream</span>
+              </div>
+            </td>
             <td>Coda</td>
             <td class="track-length">4:21</td>
           </tr>
           <tr onclick="playTrack(8)">
             <td>9</td>
-            <td>열정의 스펙트럼</td>
-            <td>이키모노가카리</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Spectrum.jpg" alt="Netsujo No Spectrum cover" class="album-thumb">
+                <span>Netsujo No Spectrum</span>
+              </div>
+            </td>
+            <td>Ikimonogakari</td>
             <td class="track-length">3:55</td>
           </tr>
           <tr onclick="playTrack(9)">
             <td>10</td>
-            <td>천본앵</td>
-            <td>화악기 밴드</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Wagakki.jpg" alt="Senbonzakura cover" class="album-thumb">
+                <span>Senbonzakura</span>
+              </div>
+            </td>
+            <td>Wagakki Band</td>
             <td class="track-length">4:39</td>
           </tr>
 
           <tr onclick="playTrack(10)">
             <td>11</td>
-            <td>Amazing Break</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Amazing.png" alt="Amazing Break cover" class="album-thumb">
+                <span>Amazing Break</span>
+              </div>
+            </td>
             <td>terraspex</td>
             <td class="track-length">3:55</td>
           </tr>
           <tr onclick="playTrack(11)">
             <td>12</td>
-            <td>Depature</td>
-            <td>오노 마사토시</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/hunter.jpg" alt="Depature cover" class="album-thumb">
+                <span>Depature</span>
+              </div>
+            </td>
+            <td>Masatoshi Ono</td>
             <td class="track-length">4:16</td>
           </tr>
           <tr onclick="playTrack(12)">
             <td>13</td>
-            <td>Raison Detre</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Raison.png" alt="Raison Detre cover" class="album-thumb">
+                <span>Raison Detre</span>
+              </div>
+            </td>
             <td>Eve</td>
             <td class="track-length">3:48</td>
           </tr>
           <tr onclick="playTrack(13)">
             <td>14</td>
-            <td>Ranbu No Melody</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Ranbuno.png" alt="Ranbu No Melody cover" class="album-thumb">
+                <span>Ranbu No Melody</span>
+              </div>
+            </td>
             <td>Sid</td>
             <td class="track-length">4:00</td>
           </tr>
             <tr onclick="playTrack(14)">
             <td>15</td>
-            <td>Fiction</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Fiction.webp" alt="Fiction cover" class="album-thumb">
+                <span>Fiction</span>
+              </div>
+            </td>
             <td>Sumika</td>
             <td class="track-length">4:12</td>
           </tr>
 
           <tr onclick="playTrack(15)">
             <td>16</td>
-            <td>Plasma</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Plasma.webp" alt="Plazma cover" class="album-thumb">
+                <span>Plazma</span>
+              </div>
+            </td>
             <td>Kenshi Yonezu</td>
             <td class="track-length">3:19</td>
           </tr>
           <tr onclick="playTrack(16)">
             <td>17</td>
-            <td>Dramaturgy</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Dramaturgy.jpg" alt="Dramaturgy cover" class="album-thumb">
+                <span>Dramaturgy</span>
+              </div>
+            </td>
             <td>Eve</td>
             <td class="track-length">3:19</td>
           </tr>
           <tr onclick="playTrack(17)">
             <td>18</td>
-            <td>Know Know Know</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Know.webp" alt="Know Know Know cover" class="album-thumb">
+                <span>Know Know Know</span>
+              </div>
+            </td>
             <td>DOES</td>
             <td class="track-length">3:20</td>
           </tr>
           <tr onclick="playTrack(18)">
             <td>19</td>
-            <td>Fatal</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Fatal.webp" alt="Fatal cover" class="album-thumb">
+                <span>Fatal</span>
+              </div>
+            </td>
             <td>GEMN</td>
             <td class="track-length">3:38</td>
           </tr>
           <tr onclick="playTrack(19)">
             <td>20</td>
-            <td>박수갈채가합</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/박수갈채.webp" alt="Hakushu Kassai Utaawase cover" class="album-thumb">
+                <span>Hakushu Kassai Utaawase</span>
+              </div>
+            </td>
             <td>Supercell</td>
             <td class="track-length">3:52</td>
           </tr>
 
           <tr onclick="playTrack(20)">
             <td>21</td>
-            <td>월광화</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Moonlight.jpg" alt="Gekkouka cover" class="album-thumb">
+                <span>Gekkouka</span>
+              </div>
+            </td>
             <td>Janne Da Arc</td>
             <td class="track-length">4:55</td>
           </tr>
           <tr onclick="playTrack(21)">
             <td>22</td>
-            <td>Innocent Trap</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Trap.webp" alt="Innocent Trap cover" class="album-thumb">
+                <span>Innocent Trap</span>
+              </div>
+            </td>
             <td>Tetra-Fang</td>
             <td class="track-length">4:44</td>
           </tr>
           <tr onclick="playTrack(22)">
             <td>23</td>
-            <td>Gas Gas Gas</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Gas.jpg" alt="Gas Gas Gas cover" class="album-thumb">
+                <span>Gas Gas Gas</span>
+              </div>
+            </td>
             <td>avex</td>
             <td class="track-length">4:21</td>
           </tr>
           <tr onclick="playTrack(23)">
             <td>24</td>
-            <td>Hello Mr My Yesterday</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Hello.webp" alt="Hello Mr My Yesterday cover" class="album-thumb">
+                <span>Hello Mr My Yesterday</span>
+              </div>
+            </td>
             <td>Hundred Percent Free</td>
             <td class="track-length">4:28</td>
           </tr>
           <tr onclick="playTrack(24)">
             <td>25</td>
-            <td>Only My Railgun</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/railgun.webp" alt="Only My Railgun cover" class="album-thumb">
+                <span>Only My Railgun</span>
+              </div>
+            </td>
             <td>Yoshino Nanjo</td>
             <td class="track-length">4:17</td>
           </tr>
 
           <tr onclick="playTrack(25)">
             <td>26</td>
-            <td>Bakuchi Dancer</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Dancer.webp" alt="Bakuchi Dancer cover" class="album-thumb">
+                <span>Bakuchi Dancer</span>
+              </div>
+            </td>
             <td>DOES</td>
             <td class="track-length">2:55</td>
           </tr>
           <tr onclick="playTrack(26)">
             <td>27</td>
-            <td>다움</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Rashisa.jpg" alt="Rashisa cover" class="album-thumb">
+                <span>Rashisa</span>
+              </div>
+            </td>
             <td>SUPER BEAVER</td>
             <td class="track-length">4:26</td>
           </tr>
           <tr onclick="playTrack(27)">
             <td>28</td>
-            <td>심장을 바쳐라!</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Shinjo.jpg" alt="Shinzo wo Sasageyo! cover" class="album-thumb">
+                <span>Shinzo wo Sasageyo!</span>
+              </div>
+            </td>
             <td>Revo</td>
             <td class="track-length">5:41</td>
           </tr>
           <tr onclick="playTrack(28)">
             <td>29</td>
-            <td>빛난다면</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Hika.png" alt="Hikarunara cover" class="album-thumb">
+                <span>Hikarunara</span>
+              </div>
+            </td>
             <td>Goose house</td>
             <td class="track-length">4:14</td>
           </tr>
           <tr onclick="playTrack(29)">
             <td>30</td>
-            <td>Otonoke</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/dandadan.webp" alt="Otonoke cover" class="album-thumb">
+                <span>Otonoke</span>
+              </div>
+            </td>
             <td>Creepy Nuts</td>
             <td class="track-length">3:15</td>
           </tr>
 
           <tr onclick="playTrack(30)">
             <td>31</td>
-            <td>Daten</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Daten.jpg" alt="Daten cover" class="album-thumb">
+                <span>Daten</span>
+              </div>
+            </td>
             <td>Creepy Nuts</td>
             <td class="track-length">2:49</td>
           </tr>
           <tr onclick="playTrack(31)">
             <td>32</td>
-            <td>Again</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Again.jpg" alt="Again cover" class="album-thumb">
+                <span>Again</span>
+              </div>
+            </td>
             <td>Yui</td>
             <td class="track-length">4:17</td>
           </tr>
           <tr onclick="playTrack(32)">
             <td>33</td>
-            <td>Reason</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Reason.jpg" alt="Reason cover" class="album-thumb">
+                <span>Reason</span>
+              </div>
+            </td>
             <td>Nami Tanaki</td>
             <td class="track-length">4:45</td>
           </tr>
           <tr onclick="playTrack(33)">
             <td>34</td>
-            <td>Sign</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Sign.jpg" alt="Sign cover" class="album-thumb">
+                <span>Sign</span>
+              </div>
+            </td>
             <td>Flow</td>
             <td class="track-length">3:53</td>
           </tr>
           <tr onclick="playTrack(34)">
             <td>35</td>
-            <td>Dai Zero Kan</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/ten.jpg" alt="Dai Zero Kan cover" class="album-thumb">
+                <span>Dai Zero Kan</span>
+              </div>
+            </td>
             <td>10-Feet</td>
             <td class="track-length">4:44</td>
           </tr>
           
           <tr onclick="playTrack(35)">
             <td>36</td>
-            <td>Memoria</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Memoria.jpg" alt="Memoria cover" class="album-thumb">
+                <span>Memoria</span>
+              </div>
+            </td>
             <td>Eir Aoi</td>
             <td class="track-length">4:52</td>
           </tr>
           <tr onclick="playTrack(36)">
             <td>37</td>
-            <td>Eternal Blaze</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Etenal.webp" alt="Eternal Blaze cover" class="album-thumb">
+                <span>Eternal Blaze</span>
+              </div>
+            </td>
             <td>Nana Mizuki</td>
             <td class="track-length">5:07</td>
           </tr>
           <tr onclick="playTrack(37)">
             <td>38</td>
-            <td>Shangri-La</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Shang.jpg" alt="Shangri-La cover" class="album-thumb">
+                <span>Shangri-La</span>
+              </div>
+            </td>
             <td>Angela</td>
             <td class="track-length">4:36</td>
           </tr>
           <tr onclick="playTrack(38)">
             <td>39</td>
-            <td>Golden Time Lover</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Gold.jpg" alt="Golden Time Lover cover" class="album-thumb">
+                <span>Golden Time Lover</span>
+              </div>
+            </td>
             <td>Sukima Switch</td>
             <td class="track-length">5:39</td>
           </tr>
           <tr onclick="playTrack(39)">
             <td>40</td>
-            <td>잔혹한 천사의 테제</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Angel.jpg" alt="A Cruel Angel`s Thesis cover" class="album-thumb">
+                <span>A Cruel Angel`s Thesis</span>
+              </div>
+            </td>
             <td>Yoko Takahashi</td>
             <td class="track-length">4:05</td>
           </tr>
@@ -430,9 +662,13 @@
         <span id="duration">0:00</span>
       </div>
       <div class="control-buttons">
-        <button onclick="playAudio()">▶ 재생</button>
-        <button id="pauseBtn" onclick="pauseAudio()">⏸ 일시정지</button>
-        <button onclick="stopAudio()">■ 정지</button>
+        <div class="control-buttons">
+          <button onclick="prevTrack()">⏮</button>
+          <button onclick="playAudio()">▶</button>
+          <button id="pauseBtn" onclick="pauseAudio()">⏸</button>
+          <button onclick="stopAudio()">■</button>
+          <button onclick="nextTrack()">⏭</button>
+        </div>
         <div style="display: flex; align-items: center; margin-top: 10px;">
   <label for="volume" style="color: white; line-height: 32px; margin-right: 10px;">볼륨</label>
   <input
@@ -454,34 +690,34 @@
       {src:'songs/피리오드.mp3', title:'Period', artist:'Chemistry', duration:'3:37'},
       {src:'songs/THE DAY.mp3', title:'The Day', artist:'Porno Graffitti', duration:'4:03'},
       {src:'songs/강연금.mp3', title:'Uso', artist:'Sid', duration:'3:28'},
-      {src:'songs/노라가미.mp3', title:'(광란) Hey kids!!', artist:'ARAGOTO', duration:'3:45'},
+      {src:'songs/노라가미.mp3', title:'狂乱 Hey kids!!', artist:'ARAGOTO', duration:'3:45'},
       {src:'songs/레인.mp3', title:'Rain', artist:'Sid', duration:'4:16'},
-      {src:'songs/양철의 댄스.mp3', title:'양철의 댄스', artist:'양지전공', duration:'3:18'},
+      {src:'songs/양철의 댄스.mp3', title:'Buriki No Dance', artist:'Hinata Electric Works', duration:'3:18'},
       {src:'songs/리라이트.mp3', title:'Rewrite', artist:'ASIAN KUNG-FU GENERATION', duration:'3:52'},
       {src:'songs/죠죠.mp3', title:'Bloody Stream', artist:'Coda', duration:'4:21'},
-      {src:'songs/칠대죄.mp3', title:'열정의 스펙트럼', artist:'이키모노가카리', duration:'3:55'},
-      {src:'songs/천본앵.mp3', title:'천본앵', artist:'화악기 밴드', duration:'4:39'},
+      {src:'songs/칠대죄.mp3', title:'Netsujo No Spectrum', artist:'Ikimonogakari', duration:'3:55'},
+      {src:'songs/천본앵.mp3', title:'Senbonzakura', artist:'Wagakki Band', duration:'4:39'},
 
       {src:'songs/테라포마스.mp3', title:'Amazing Break', artist:'terraspex', duration:'3:55'},
-      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'오노 마사토시', duration:'4:16'},
+      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'Masatoshi Ono', duration:'4:16'},
       {src:'songs/레종.mp3', title:'Raison Detre', artist:'Eve', duration:'3:48'},
       {src:'songs/란부노.mp3', title:'Ranbu No Melody', artist:'Sid', duration:'4:00'},
       {src:'songs/픽션.mp3', title:'Fiction', artist:'Sumika', duration:'4:12'},
-      {src:'songs/플라즈마.mp3', title:'Plasma', artist:'Kenshi Yonezu', duration:'3:19'},
+      {src:'songs/플라즈마.mp3', title:'Plazma', artist:'Kenshi Yonezu', duration:'3:19'},
       {src:'songs/드라마투르기.mp3', title:'Dramaturgy', artist:'Eve', duration:'3:19'},
       {src:'songs/은혼.mp3', title:'Know Know Know', artist:'DOES', duration:'3:20'},
       {src:'songs/파탈.mp3', title:'Fatal', artist:'GEMN', duration:'3:38'},
-      {src:'songs/박수갈채가합.mp3', title:'박수갈채가합', artist:'Supercell', duration:'3:52'},
+      {src:'songs/박수갈채가합.mp3', title:'Hakushu Kassai Utaawase', artist:'Supercell', duration:'3:52'},
 
-      {src:'songs/월광화.mp3', title:'월광화', artist:'Janne Da Arc', duration:'4:55'},
+      {src:'songs/월광화.mp3', title:'Moonlight Flower', artist:'Janne Da Arc', duration:'4:55'},
       {src:'songs/이노센트트랩.mp3', title:'Innocent Trap', artist:'Tetra-Fang', duration:'4:44'},
       {src:'songs/가스가스.mp3', title:'Gas Gas Gas', artist:'avex', duration:'4:21'},
       {src:'songs/헬로마이.mp3', title:'Hello Mr My Yesterday', artist:'Hundred Percent Free', duration:'4:28'},
       {src:'songs/레일건.mp3', title:'Only My Railgun', artist:' Yoshino Nanjo', duration:'4:17'},
       {src:'songs/도박댄서.mp3', title:'Bakuchi Dancer', artist:'DOES', duration:'2:55'},
-      {src:'songs/다움.mp3', title:'다움', artist:'SUPER BEAVER', duration:'4:26'},
-      {src:'songs/심장을바쳐라.mp3', title:'심장을 바쳐라!', artist:'Revo', duration:'5:41'},
-      {src:'songs/빛난다면.mp3', title:'빛난다면', artist:'Goose house', duration:'4:14'},
+      {src:'songs/다움.mp3', title:'Rashisa', artist:'SUPER BEAVER', duration:'4:26'},
+      {src:'songs/심장을바쳐라.mp3', title:'Shinzo wo Sasageyo!', artist:'Revo', duration:'5:41'},
+      {src:'songs/빛난다면.mp3', title:'Hikarunara', artist:'Goose house', duration:'4:14'},
       {src:'songs/단다단.mp3', title:'Otonoke', artist:'Creepy Nuts', duration:'3:15'},
 
       {src:'songs/타천.mp3', title:'Daten', artist:'Creepy Nuts', duration:'2:49'},
@@ -493,7 +729,7 @@
       {src:'songs/이터널.mp3', title:'Eternal Blaze', artist:'Nana Mizuki', duration:'5:07'},
       {src:'songs/샹그리라.mp3', title:'Shangri-La', artist:'Angela', duration:'4:36'},
       {src:'songs/골타러.mp3', title:'Golden Time Lover', artist:'Sukima Switch', duration:'5:39'},
-      {src:'songs/에반게리온.mp3', title:'잔혹한 천사의 테제', artist:'Yoko Takahashi', duration:'4:05'}
+      {src:'songs/에반게리온.mp3', title:'A Cruel Angel`s Thesis', artist:'Yoko Takahashi', duration:'4:05'}
     ];
     let audio = new Audio();
     let currentIndex = null;
@@ -581,6 +817,18 @@
 
     // 초기 볼륨 설정
     setVolume(volumeSlider.value);
+
+    function nextTrack() {
+  if (currentIndex !== null && currentIndex < tracks.length - 1) {
+    playTrack(currentIndex + 1);
+  }
+}
+
+function prevTrack() {
+  if (currentIndex !== null && currentIndex > 0) {
+    playTrack(currentIndex - 1);
+  }
+}
   </script>
 </body>
 </html>

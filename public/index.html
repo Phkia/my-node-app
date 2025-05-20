@@ -43,6 +43,7 @@
       float: left;
       margin-bottom: 20px;
     }
+    
 
     /* 플레이리스트 스크롤 영역 감싸는 컨테이너 */
     .playlist-container {
@@ -51,6 +52,7 @@
       margin-bottom: 20px;
       width: 100%;
     }
+    /* 스크롤바 스타일 */
     .playlist-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -197,7 +199,7 @@
             <th class="track-number">#</th>
             <th style="padding-left: 80px;">제목</th>
             <th>가수</th>
-            <th class="track-length">길이</th>
+            <th class="track-length">시간</th>
           </tr>
         </thead>
         <tbody id="track-list">
@@ -648,6 +650,116 @@
             <td>Yoko Takahashi</td>
             <td class="track-length">4:05</td>
           </tr>
+          <tr onclick="playTrack(40)">
+            <td>41</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/잔치.webp" alt="Demons Banquet cover" class="album-thumb">
+                <span>Demons Banquet</span>
+              </div>
+            </td>
+            <td>Tomonari Sora</td>
+            <td class="track-length">3:00</td>
+          </tr>
+          <tr onclick="playTrack(41)">
+            <td>42</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Gravity.jpg" alt="Burst The Gravity cover" class="album-thumb">
+                <span>Burst The Gravity</span>
+              </div>
+            </td>
+            <td>ALTIMA</td>
+            <td class="track-length">4:27</td>
+          </tr>
+          <tr onclick="playTrack(42)">
+            <td>43</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/문학.webp" alt="Literary Nonsense cover" class="album-thumb">
+                <span>Literary Nonsense</span>
+              </div>
+            </td>
+            <td>Eve</td>
+            <td class="track-length">3:26</td>
+          </tr>
+          <tr onclick="playTrack(43)">
+            <td>44</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/만월.webp" alt="Sakuramitsutsuki cover" class="album-thumb">
+                <span>Sakuramitsutsuki</span>
+              </div>
+            </td>
+            <td>SPYAIR</td>
+            <td class="track-length">3:36</td>
+          </tr>
+          <tr onclick="playTrack(44)">
+            <td>45</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Peace.jpg" alt="Peace Sign cover" class="album-thumb">
+                <span>Peace Sign</span>
+              </div>
+            </td>
+            <td>Yonezu Kenshi</td>
+            <td class="track-length">3:57</td>
+          </tr>
+          <tr onclick="playTrack(45)">
+            <td>46</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/VIP.webp" alt="V.I.P cover" class="album-thumb">
+                <span>V.I.P</span>
+              </div>
+            </td>
+            <td>Sid</td>
+            <td class="track-length">3:13</td>
+          </tr>
+          <tr onclick="playTrack(46)">
+            <td>47</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/천의날개.jpg" alt="Sen No Tsubasa cover" class="album-thumb">
+                <span>Sen No Tsubasa</span>
+              </div>
+            </td>
+            <td>Livetune</td>
+            <td class="track-length">3:40</td>
+          </tr>
+          <tr onclick="playTrack(47)">
+            <td>48</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Holo.jpg" alt="Hologram cover" class="album-thumb">
+                <span>Hologram</span>
+              </div>
+            </td>
+            <td>NICO Touches the Walls</td>
+            <td class="track-length">4:06</td>
+          </tr>
+          <tr onclick="playTrack(48)">
+            <td>49</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Call.webp" alt="Curtain call cover" class="album-thumb">
+                <span>Curtain call</span>
+              </div>
+            </td>
+            <td>Yuuri</td>
+            <td class="track-length">4:03</td>
+          </tr>
+          <tr onclick="playTrack(49)">
+            <td>50</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Blue.webp" alt="Blue Bird cover" class="album-thumb">
+                <span>Blue Bird</span>
+              </div>
+            </td>
+            <td>Ikimonogakari</td>
+            <td class="track-length">3:32</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -687,49 +799,60 @@
 
   <script>
     const tracks = [
-      {src:'songs/피리오드.mp3', title:'Period', artist:'Chemistry', duration:'3:37'},
-      {src:'songs/THE DAY.mp3', title:'The Day', artist:'Porno Graffitti', duration:'4:03'},
-      {src:'songs/강연금.mp3', title:'Uso', artist:'Sid', duration:'3:28'},
-      {src:'songs/노라가미.mp3', title:'狂乱 Hey kids!!', artist:'ARAGOTO', duration:'3:45'},
-      {src:'songs/레인.mp3', title:'Rain', artist:'Sid', duration:'4:16'},
-      {src:'songs/양철의 댄스.mp3', title:'Buriki No Dance', artist:'Hinata Electric Works', duration:'3:18'},
-      {src:'songs/리라이트.mp3', title:'Rewrite', artist:'ASIAN KUNG-FU GENERATION', duration:'3:52'},
-      {src:'songs/죠죠.mp3', title:'Bloody Stream', artist:'Coda', duration:'4:21'},
-      {src:'songs/칠대죄.mp3', title:'Netsujo No Spectrum', artist:'Ikimonogakari', duration:'3:55'},
-      {src:'songs/천본앵.mp3', title:'Senbonzakura', artist:'Wagakki Band', duration:'4:39'},
+      {src:'songs/피리오드.mp3', title:'Period', artist:'Chemistry #1', duration:'3:37'},
+      {src:'songs/THE DAY.mp3', title:'The Day', artist:'Porno Graffitti #2', duration:'4:03'},
+      {src:'songs/강연금.mp3', title:'Uso', artist:'Sid #3', duration:'3:28'},
+      {src:'songs/노라가미.mp3', title:'狂乱 Hey kids!!', artist:'ARAGOTO #4', duration:'3:45'},
+      {src:'songs/레인.mp3', title:'Rain', artist:'Sid #5', duration:'4:16'},
+      {src:'songs/양철의 댄스.mp3', title:'Buriki No Dance', artist:'Hinata Electric Works #6', duration:'3:18'},
+      {src:'songs/리라이트.mp3', title:'Rewrite', artist:'ASIAN KUNG-FU GENERATION #7', duration:'3:52'},
+      {src:'songs/죠죠.mp3', title:'Bloody Stream', artist:'Coda #8', duration:'4:21'},
+      {src:'songs/칠대죄.mp3', title:'Netsujo No Spectrum', artist:'Ikimonogakari #9', duration:'3:55'},
+      {src:'songs/천본앵.mp3', title:'Senbonzakura', artist:'Wagakki Band #10', duration:'4:39'},
 
-      {src:'songs/테라포마스.mp3', title:'Amazing Break', artist:'terraspex', duration:'3:55'},
-      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'Masatoshi Ono', duration:'4:16'},
-      {src:'songs/레종.mp3', title:'Raison Detre', artist:'Eve', duration:'3:48'},
-      {src:'songs/란부노.mp3', title:'Ranbu No Melody', artist:'Sid', duration:'4:00'},
-      {src:'songs/픽션.mp3', title:'Fiction', artist:'Sumika', duration:'4:12'},
-      {src:'songs/플라즈마.mp3', title:'Plazma', artist:'Kenshi Yonezu', duration:'3:19'},
-      {src:'songs/드라마투르기.mp3', title:'Dramaturgy', artist:'Eve', duration:'3:19'},
-      {src:'songs/은혼.mp3', title:'Know Know Know', artist:'DOES', duration:'3:20'},
-      {src:'songs/파탈.mp3', title:'Fatal', artist:'GEMN', duration:'3:38'},
-      {src:'songs/박수갈채가합.mp3', title:'Hakushu Kassai Utaawase', artist:'Supercell', duration:'3:52'},
+      {src:'songs/테라포마스.mp3', title:'Amazing Break', artist:'terraspex #11', duration:'3:55'},
+      {src:'songs/헌터헌터.mp3', title:'Depature', artist:'Masatoshi Ono #12', duration:'4:16'},
+      {src:'songs/레종.mp3', title:'Raison Detre', artist:'Eve #13', duration:'3:48'},
+      {src:'songs/란부노.mp3', title:'Ranbu No Melody', artist:'Sid #14', duration:'4:00'},
+      {src:'songs/픽션.mp3', title:'Fiction', artist:'Sumika #15', duration:'4:12'},
+      {src:'songs/플라즈마.mp3', title:'Plazma', artist:'Kenshi Yonezu #16', duration:'3:19'},
+      {src:'songs/드라마투르기.mp3', title:'Dramaturgy', artist:'Eve #17', duration:'3:19'},
+      {src:'songs/은혼.mp3', title:'Know Know Know', artist:'DOES #18', duration:'3:20'},
+      {src:'songs/파탈.mp3', title:'Fatal', artist:'GEMN #19', duration:'3:38'},
+      {src:'songs/박수갈채가합.mp3', title:'Hakushu Kassai Utaawase', artist:'Supercell #20', duration:'3:52'},
 
-      {src:'songs/월광화.mp3', title:'Moonlight Flower', artist:'Janne Da Arc', duration:'4:55'},
-      {src:'songs/이노센트트랩.mp3', title:'Innocent Trap', artist:'Tetra-Fang', duration:'4:44'},
-      {src:'songs/가스가스.mp3', title:'Gas Gas Gas', artist:'avex', duration:'4:21'},
-      {src:'songs/헬로마이.mp3', title:'Hello Mr My Yesterday', artist:'Hundred Percent Free', duration:'4:28'},
-      {src:'songs/레일건.mp3', title:'Only My Railgun', artist:' Yoshino Nanjo', duration:'4:17'},
-      {src:'songs/도박댄서.mp3', title:'Bakuchi Dancer', artist:'DOES', duration:'2:55'},
-      {src:'songs/다움.mp3', title:'Rashisa', artist:'SUPER BEAVER', duration:'4:26'},
-      {src:'songs/심장을바쳐라.mp3', title:'Shinzo wo Sasageyo!', artist:'Revo', duration:'5:41'},
-      {src:'songs/빛난다면.mp3', title:'Hikarunara', artist:'Goose house', duration:'4:14'},
-      {src:'songs/단다단.mp3', title:'Otonoke', artist:'Creepy Nuts', duration:'3:15'},
+      {src:'songs/월광화.mp3', title:'Moonlight Flower', artist:'Janne Da Arc #21', duration:'4:55'},
+      {src:'songs/이노센트트랩.mp3', title:'Innocent Trap', artist:'Tetra-Fang #22', duration:'4:44'},
+      {src:'songs/가스가스.mp3', title:'Gas Gas Gas', artist:'avex #23', duration:'4:21'},
+      {src:'songs/헬로마이.mp3', title:'Hello Mr My Yesterday', artist:'Hundred Percent Free #24', duration:'4:28'},
+      {src:'songs/레일건.mp3', title:'Only My Railgun', artist:'Yoshino Nanjo #25', duration:'4:17'},
+      {src:'songs/도박댄서.mp3', title:'Bakuchi Dancer', artist:'DOES #26', duration:'2:55'},
+      {src:'songs/다움.mp3', title:'Rashisa', artist:'SUPER BEAVER #27', duration:'4:26'},
+      {src:'songs/심장을바쳐라.mp3', title:'Shinzo wo Sasageyo!', artist:'Revo #28', duration:'5:41'},
+      {src:'songs/빛난다면.mp3', title:'Hikarunara', artist:'Goose house #29', duration:'4:14'},
+      {src:'songs/단다단.mp3', title:'Otonoke', artist:'Creepy Nuts #30', duration:'3:15'},
 
-      {src:'songs/타천.mp3', title:'Daten', artist:'Creepy Nuts', duration:'2:49'},
-      {src:'songs/어게인.mp3', title:'Again', artist:'Yui', duration:'4:17'},
-      {src:'songs/리즌.mp3', title:'Reason', artist:'Nami Tanaki', duration:'4:45'},
-      {src:'songs/사인.mp3', title:'Sign', artist:'Flow', duration:'3:53'},
-      {src:'songs/텐핏.mp3', title:'Dai Zero Kan', artist:'10-Feet', duration:'4:44'},
-      {src:'songs/메모리아.mp3', title:'Memoria', artist:'Eir Aoi', duration:'4:52'},
-      {src:'songs/이터널.mp3', title:'Eternal Blaze', artist:'Nana Mizuki', duration:'5:07'},
-      {src:'songs/샹그리라.mp3', title:'Shangri-La', artist:'Angela', duration:'4:36'},
-      {src:'songs/골타러.mp3', title:'Golden Time Lover', artist:'Sukima Switch', duration:'5:39'},
-      {src:'songs/에반게리온.mp3', title:'A Cruel Angel`s Thesis', artist:'Yoko Takahashi', duration:'4:05'}
+      {src:'songs/타천.mp3', title:'Daten', artist:'Creepy Nuts #31', duration:'2:49'},
+      {src:'songs/어게인.mp3', title:'Again', artist:'Yui #32', duration:'4:17'},
+      {src:'songs/리즌.mp3', title:'Reason', artist:'Nami Tanaki #33', duration:'4:45'},
+      {src:'songs/사인.mp3', title:'Sign', artist:'Flow #34', duration:'3:53'},
+      {src:'songs/텐핏.mp3', title:'Dai Zero Kan', artist:'10-Feet #35', duration:'4:44'},
+      {src:'songs/메모리아.mp3', title:'Memoria', artist:'Eir Aoi #36', duration:'4:52'},
+      {src:'songs/이터널.mp3', title:'Eternal Blaze', artist:'Nana Mizuki #37', duration:'5:07'},
+      {src:'songs/샹그리라.mp3', title:'Shangri-La', artist:'Angela #38', duration:'4:36'},
+      {src:'songs/골타러.mp3', title:'Golden Time Lover', artist:'Sukima Switch #39', duration:'5:39'},
+      {src:'songs/에반게리온.mp3', title:'A Cruel Angel`s Thesis', artist:'Yoko Takahashi #40', duration:'4:05'},
+
+      {src:'songs/잔치.mp3', title:'Demons Banquet', artist:'Tomonari Sora #41', duration:'3:00'},
+      {src:'songs/Gravity.mp3', title:'Burst The Gravity', artist:'ALTIMA #42', duration:'4:27'},
+      {src:'songs/Nonsense.mp3', title:'Literary Nonsense', artist:'Eve #43', duration:'3:26'},
+      {src:'songs/Bokurawa.mp3', title:'Sakuramitsutsuki', artist:'SPYAIR #44', duration:'3:36'},
+      {src:'songs/Peace.mp3', title:'Peace Sign', artist:'Yonezu Kenshi #45', duration:'3:57'},
+      {src:'songs/VIP.mp3', title:'V.I.P', artist:'Sid #46', duration:'3:13'},
+      {src:'songs/천의날개.mp3', title:'Sen No Tsubasa', artist:'Livetune #47', duration:'3:40'},
+      {src:'songs/Hologram.mp3', title:'Hologram', artist:'NICO Touches the Walls #48', duration:'4:06'},
+      {src:'songs/Call.mp3', title:'Curtain call', artist:'Yuuri #49', duration:'4:03'},
+      {src:'songs/Blue.mp3', title:'Blue Bird', artist:'Ikimonogakari #50', duration:'3:32'}  
     ];
     let audio = new Audio();
     let currentIndex = null;

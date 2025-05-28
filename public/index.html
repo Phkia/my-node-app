@@ -186,6 +186,7 @@
       width: 90px;
       height: 100px;
     }
+    
   </style>
 </head>
 <body>
@@ -759,29 +760,56 @@
             </td>
             <td>Ikimonogakari</td>
             <td class="track-length">3:32</td>
+          <tr onclick="playTrack(50)">
+            <td>51</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/Paradise.jpg" alt="Paradise Lost" class="album-thumb">
+                <span>Paradise Lost</span>
+              </div>
+            </td>
+            <td>Minori Chihara</td>
+            <td class="track-length">4:43</td>
+          </tr>
+          <tr onclick="playTrack(51)">
+            <td>52</td>
+            <td>
+              <div class="track-info">
+                <img src="Images/하나둘.jpg" alt="1,2, FanClub cover" class="album-thumb">
+                <span>1,2, FanClub</span>
+              </div>
+            </td>
+            <td>mikitoP</td>
+            <td class="track-length">3:58</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="controls">
-      <div class="now-playing" id="nowPlaying">재생 중인 노래: 없음</div>
-      <div class="progress-container">
-        <input type="range" id="progress" min="0" max="100" value="0" step="1" onchange="seekAudio(this.value)" />
-      </div>
-      <div class="time-display">
-        <span id="currentTime">0:00</span>
-        <span id="duration">0:00</span>
-      </div>
-      <div class="control-buttons">
-        <div class="control-buttons">
-          <button onclick="prevTrack()">⏮</button>
-          <button onclick="playAudio()">▶</button>
-          <button id="pauseBtn" onclick="pauseAudio()">⏸</button>
-          <button onclick="stopAudio()">■</button>
-          <button onclick="nextTrack()">⏭</button>
-        </div>
-        <div style="display: flex; align-items: center; margin-top: 10px;">
+  <div class="now-playing" id="nowPlaying">재생 중인 노래: 없음</div>
+
+  <div class="progress-container">
+    <input type="range" id="progress" min="0" max="100" value="0" step="1" onchange="seekAudio(this.value)" />
+  </div>
+
+  <div class="time-display">
+    <span id="currentTime">0:00</span>
+    <span id="duration">0:00</span>
+  </div>
+
+  <!-- 버튼 및 볼륨 포함 전체 컨트롤 영역 -->
+  <div class="control-area" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+    <!-- 재생 컨트롤 버튼 -->
+    <div class="control-buttons" style="display: flex; gap: 10px;">
+      <button onclick="prevTrack()">⏮</button>
+      <button onclick="playAudio()">▶</button>
+      <button id="pauseBtn" onclick="pauseAudio()">⏸</button>
+      <button onclick="stopAudio()">■</button>
+      <button onclick="nextTrack()">⏭</button>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-top: 10px; gap: 10px;">
   <label for="volume" style="color: white; line-height: 32px; margin-right: 10px;">볼륨</label>
   <input
     type="range"
@@ -793,9 +821,30 @@
     onchange="setVolume(this.value)"
     style="flex: 1; height: 4px; accent-color: #1db954;"
   />
+  <!-- 🔁 반복 버튼 -->
+  <button onclick="toggleRepeat(event)" style="
+  background-color: #1db954;
+  border: none;
+  color: white;
+  width: 60px;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 25px;">🔁</button>
+
+<!-- 🔀 셔플 버튼 -->
+<button onclick="toggleShuffle(event)" style="
+  background-color: #1db954;
+  border: none;
+  color: white;
+  width: 60px;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 25px;">🔀</button>
 </div>
-    </div>
   </div>
+</div>
 
   <script>
     const tracks = [
@@ -852,106 +901,177 @@
       {src:'songs/천의날개.mp3', title:'Sen No Tsubasa', artist:'Livetune #47', duration:'3:40'},
       {src:'songs/Hologram.mp3', title:'Hologram', artist:'NICO Touches the Walls #48', duration:'4:06'},
       {src:'songs/Call.mp3', title:'Curtain call', artist:'Yuuri #49', duration:'4:03'},
-      {src:'songs/Blue.mp3', title:'Blue Bird', artist:'Ikimonogakari #50', duration:'3:32'}  
+      {src:'songs/Blue.mp3', title:'Blue Bird', artist:'Ikimonogakari #50', duration:'3:32'},
+      
+      {src:'songs/Paradise.mp3', title:'Paradise Lost', artist:'Minori Chihara #51', duration:'4:43'},
+      {src:'songs/하나둘.mp3', title:'1,2, FanClub', artist:'mikitoP #52', duration:'3:58'}
     ];
-    let audio = new Audio();
-    let currentIndex = null;
+    let isShuffle = false;
+let isRepeat = false;
 
-    const nowPlaying = document.getElementById('nowPlaying');
-    const progress = document.getElementById('progress');
-    const currentTimeEl = document.getElementById('currentTime');
-    const durationEl = document.getElementById('duration');
-    const volumeSlider = document.getElementById('volume');
+let audio = new Audio();
+let currentIndex = null;
 
-    function playAll() {
-      if (tracks.length > 0) playTrack(0);
-    }
+const nowPlaying = document.getElementById('nowPlaying');
+const progress = document.getElementById('progress');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
+const volumeSlider = document.getElementById('volume');
 
-    function playTrack(index) {
-      currentIndex = index;
-      audio.src = tracks[index].src;
-      nowPlaying.textContent = `재생 중인 노래: ${tracks[index].title} - ${tracks[index].artist}`;
+function playAll() {
+  if (tracks.length > 0) playTrack(0);
+}
 
-      audio.load();
-      audio.onloadedmetadata = () => {
-        durationEl.textContent = formatTime(audio.duration);
-        audio.play();
-      };
-    }
+function playTrack(index) {
+  currentIndex = index;
+  audio.src = tracks[index].src;
+  nowPlaying.textContent = `재생 중인 노래: ${tracks[index].title} - ${tracks[index].artist}`;
 
-    function playAudio() {
-      if (audio.src) {
-        audio.play();
-      } else {
-        playAll();
-      }
-    }
+  audio.load();
+  audio.onloadedmetadata = () => {
+    durationEl.textContent = formatTime(audio.duration);
+    audio.play();
+  };
+}
 
-    function pauseAudio() {
-      audio.pause();
-    }
-
-    function stopAudio() {
-      audio.pause();
-      audio.currentTime = 0;
-      nowPlaying.textContent = '재생 중인 노래: 없음';
-      progress.value = 0;
-      currentTimeEl.textContent = '0:00';
-      durationEl.textContent = '0:00';
-      currentIndex = null;
-      audio.src = '';
-    }
-
-    function setVolume(val) {
-      audio.volume = val;
-    }
-
-    function seekAudio(val) {
-      if (audio.duration) {
-        audio.currentTime = (audio.duration * val) / 100;
-      }
-    }
-
-    function formatTime(seconds) {
-      const m = Math.floor(seconds / 60);
-      const s = Math.floor(seconds % 60).toString().padStart(2, '0');
-      return `${m}:${s}`;
-    }
-
-    audio.addEventListener('timeupdate', () => {
-      if (audio.duration) {
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progress.value = progressPercent;
-        currentTimeEl.textContent = formatTime(audio.currentTime);
-      }
-    });
-
-    audio.addEventListener('ended', () => {
-      if (currentIndex !== null && currentIndex < tracks.length - 1) {
-        playTrack(currentIndex + 1);
-      } else {
-        stopAudio();
-      }
-    });
-
-    progress.addEventListener('input', () => {
-      seekAudio(progress.value);
-    });
-
-    // 초기 볼륨 설정
-    setVolume(volumeSlider.value);
-
-    function nextTrack() {
-  if (currentIndex !== null && currentIndex < tracks.length - 1) {
-    playTrack(currentIndex + 1);
+function playAudio() {
+  if (audio.src) {
+    audio.play();
+  } else {
+    playAll();
   }
+}
+
+function pauseAudio() {
+  audio.pause();
+}
+
+function stopAudio() {
+  audio.pause();
+  audio.currentTime = 0;
+  nowPlaying.textContent = '재생 중인 노래: 없음';
+  progress.value = 0;
+  currentTimeEl.textContent = '0:00';
+  durationEl.textContent = '0:00';
+  currentIndex = null;
+  audio.src = '';
+}
+
+function setVolume(val) {
+  audio.volume = val;
+}
+
+function seekAudio(val) {
+  if (audio.duration) {
+    audio.currentTime = (audio.duration * val) / 100;
+  }
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+
+audio.addEventListener('timeupdate', () => {
+  if (audio.duration) {
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progress.value = progressPercent;
+    currentTimeEl.textContent = formatTime(audio.currentTime);
+  }
+});
+
+audio.addEventListener('ended', () => {
+  nextTrack(); // 끝나면 다음 곡 재생 (셔플/반복 반영)
+});
+
+progress.addEventListener('input', () => {
+  seekAudio(progress.value);
+});
+
+// 초기 볼륨 설정
+setVolume(volumeSlider.value);
+
+function nextTrack() {
+  if (isRepeat && currentIndex !== null) {
+    audio.currentTime = 0;
+    audio.play();
+    return;
+  }
+
+  if (isShuffle) {
+    currentIndex = Math.floor(Math.random() * tracks.length);
+  } else {
+    if (currentIndex !== null) {
+      currentIndex = (currentIndex + 1) % tracks.length;
+    } else {
+      currentIndex = 0;
+    }
+  }
+
+  playTrack(currentIndex);
 }
 
 function prevTrack() {
-  if (currentIndex !== null && currentIndex > 0) {
-    playTrack(currentIndex - 1);
+  if (isRepeat && currentIndex !== null) {
+    audio.currentTime = 0;
+    audio.play();
+    return;
+  }
+
+  if (isShuffle) {
+    currentIndex = Math.floor(Math.random() * tracks.length);
+  } else {
+    if (currentIndex !== null) {
+      currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+    } else {
+      currentIndex = 0;
+    }
+  }
+
+  playTrack(currentIndex);
+}
+
+function toggleShuffle(event) {
+  isShuffle = !isShuffle;
+  const shuffleBtn = event.currentTarget;
+  shuffleBtn.style.backgroundColor = isShuffle ? '#14833b' : '#1db954';
+}
+
+function toggleRepeat(event) {
+  isRepeat = !isRepeat;
+  const repeatBtn = event.currentTarget;
+  repeatBtn.style.backgroundColor = isRepeat ? '#14833b' : '#1db954';
+}
+function toggleShuffle(event) {
+  isShuffle = !isShuffle;
+  const shuffleBtn = event.currentTarget;
+  const repeatBtn = document.querySelector('button[onclick="toggleRepeat(event)"]');
+
+  if (isShuffle) {
+    // 셔플 켜면 반복 끄고, 반복 버튼 색 초기화
+    isRepeat = false;
+    shuffleBtn.style.backgroundColor = '#14833b'; // 셔플 활성 색
+    if (repeatBtn) repeatBtn.style.backgroundColor = '#1db954'; // 반복 기본 색
+  } else {
+    shuffleBtn.style.backgroundColor = '#1db954'; // 셔플 기본 색
   }
 }
-  </script>
+
+function toggleRepeat(event) {
+  isRepeat = !isRepeat;
+  const repeatBtn = event.currentTarget;
+  const shuffleBtn = document.querySelector('button[onclick="toggleShuffle(event)"]');
+
+  if (isRepeat) {
+    // 반복 켜면 셔플 끄고, 셔플 버튼 색 초기화
+    isShuffle = false;
+    repeatBtn.style.backgroundColor = '#14833b'; // 반복 활성 색
+    if (shuffleBtn) shuffleBtn.style.backgroundColor = '#1db954'; // 셔플 기본 색
+  } else {
+    repeatBtn.style.backgroundColor = '#1db954'; // 반복 기본 색
+  }
+}
+  </script> 
 </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>쌀프티파이</title>
+  <link rel="icon" href="로고.png" type="image/png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #121212;
+      color: white;
+      text-align: center; /* 제목과 전체 텍스트 가운데 정렬 */
+    }
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 40px;
+    }
+    .playlist-container {
+      display: flex;
+      justify-content: center; /* 가로 중앙 정렬 */
+    }
+    .playlist-box {
+      width: 250px;
+      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #282828;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+      transition: transform 0.2s ease;
+    }
+    .playlist-box:hover {
+      transform: scale(1.05);
+    }
+    .playlist-box img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .playlist-title {
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background-color: #181818;
+    }
+  </style>
+</head>
+<body>
+  <h1>플레이리스트</h1>
+  
+  <div class="playlist-container">
+    <div class="playlist-box" onclick="location.href='index.html'">
+      <img src="Images/징징이.jpg" alt="징징이" />
+      <div class="playlist-title">감동이 있는 플레이리스트</div>
+    </div>
+  </div>
+</body>
+</html>
